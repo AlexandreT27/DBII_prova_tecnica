@@ -1,8 +1,7 @@
 CREATE DATABASE IF NOT EXISTS loja_pascotto;
 USE loja_pascotto;
 
-\\tabela fornecedores
-    
+--tabela_fornecedores
 CREATE TABLE fornecedores (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     nome_fornecedor VARCHAR(100) NOT NULL,
@@ -12,15 +11,13 @@ CREATE TABLE fornecedores (
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
-\\tabela categorias
-    
+--tabela_categorias  
 CREATE TABLE categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB;
 
-\\tabela colaboradores
-    
+--tabela_colaboradores  
 CREATE TABLE colaboradores (
     id_colaborador INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -30,8 +27,7 @@ CREATE TABLE colaboradores (
     data_admissao DATE
 ) ENGINE=InnoDB;
 
-\\tabela produtos
-    
+--tabela_produtos 
 CREATE TABLE produtos (
     id_produto INT AUTO_INCREMENT PRIMARY KEY,
     id_fornecedor INT,
@@ -47,8 +43,7 @@ CREATE TABLE produtos (
         REFERENCES categorias(id_categoria) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
-\\tabela pedidos
-    
+--tabela_pedidos
 CREATE TABLE pedidos (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_colaborador INT,
@@ -58,8 +53,7 @@ CREATE TABLE pedidos (
         REFERENCES colaboradores(id_colaborador)
 ) ENGINE=InnoDB;
 
-\\tabela itens_pedidod
-    
+--tabela_itens_pedidod
 CREATE TABLE itens_pedido (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT,
@@ -72,7 +66,6 @@ CREATE TABLE itens_pedido (
         REFERENCES produtos(id_produto)
 ) ENGINE=InnoDB;
 
-\\indice para acelerar buscas comuns
-    
+--indice para acelerar buscas comuns
 CREATE INDEX idx_nome_produto ON produtos(nome);
 CREATE INDEX idx_data_pedido ON pedidos(data_pedido);
