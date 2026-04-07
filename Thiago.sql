@@ -2,6 +2,7 @@ CREATE DATABASE IF NOT EXISTS loja_pascotto_v2;
 USE loja_pascotto_v2;
 
 \\tabela fornecedores
+    
 CREATE TABLE fornecedores (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
     nome_fornecedor VARCHAR(100) NOT NULL,
@@ -12,12 +13,14 @@ CREATE TABLE fornecedores (
 ) ENGINE=InnoDB;
 
 \\tabela categorias
+    
 CREATE TABLE categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB;
 
 \\tabela colaboradores
+    
 CREATE TABLE colaboradores (
     id_colaborador INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -28,6 +31,7 @@ CREATE TABLE colaboradores (
 ) ENGINE=InnoDB;
 
 \\tabela produtos
+    
 CREATE TABLE produtos (
     id_produto INT AUTO_INCREMENT PRIMARY KEY,
     id_fornecedor INT,
@@ -44,6 +48,7 @@ CREATE TABLE produtos (
 ) ENGINE=InnoDB;
 
 \\tabela pedidos
+    
 CREATE TABLE pedidos (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_colaborador INT,
@@ -54,6 +59,7 @@ CREATE TABLE pedidos (
 ) ENGINE=InnoDB;
 
 \\tabela itens_pedidod
+    
 CREATE TABLE itens_pedido (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT,
@@ -67,5 +73,6 @@ CREATE TABLE itens_pedido (
 ) ENGINE=InnoDB;
 
 \\indice para acelerar buscas comuns
+    
 CREATE INDEX idx_nome_produto ON produtos(nome);
 CREATE INDEX idx_data_pedido ON pedidos(data_pedido);
