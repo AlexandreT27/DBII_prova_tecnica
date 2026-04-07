@@ -1,4 +1,47 @@
 CREATE DATABASE loja_pascotto_prova;
+USE loja_pascotto_prova;
+
+CREATE TABLE fornecedores(
+    idFornecedor VARCHAR(10) PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    cnpj VARCHAR(14) NOT NULL, 
+    telefone VARCHAR(15),     
+    cpf VARCHAR(11),         
+    email VARCHAR(50)        
+);
+
+CREATE TABLE colaborador(
+    idColaborador VARCHAR(100) PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    cargo VARCHAR(50),
+    salario DECIMAL(10,2)     
+);
+
+CREATE TABLE produtos(
+    idProduto VARCHAR(100) PRIMARY KEY,
+    idFornecedor VARCHAR(10),
+    nome VARCHAR(50) NOT NULL,
+    preco DECIMAL(10,2),      
+    quantidade_estoque INT,   
+    CONSTRAINT fk_idFornecedor_produtos FOREIGN KEY(idFornecedor) REFERENCES fornecedores(idFornecedor)
+);
+
+CREATE TABLE pedidos(
+    idPedido VARCHAR(50) PRIMARY KEY,
+    idColaborador VARCHAR(100),
+    idProduto VARCHAR(100),
+    quantidade INT,
+    CONSTRAINT fk_idColaborador_pedidos FOREIGN KEY(idColaborador) REFERENCES colaborador(idColaborador), -- Corrigido para 'colaborador'
+    CONSTRAINT fk_idProduto_pedidos FOREIGN KEY(idProduto) REFERENCES produtos(idProduto)
+);
+
+CREATE TABLE categorias(
+    idCategoria VARCHAR(100) PRIMARY KEY,
+    nomeCategoria VARCHAR(50) NOT NULL
+);
+
+ALTER TABLE pedidos ADD COLUMN idCategoria VARCHAR(100);
+ALTER TABLE pedidos ADD CONSTRAINT fk_idCategoria_pedidos FOREIGN KEY(idCategoria) REFERENCES categorias(idCategoria);CREATE DATABASE loja_pascotto_prova;
 
 USE loja_pascotto_prova;
 
