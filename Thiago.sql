@@ -1,25 +1,23 @@
 CREATE DATABASE IF NOT EXISTS loja_pascotto_v2;
 USE loja_pascotto_v2;
 
--- 1. TABELA DE FORNECEDORES
--- Documentos salvos como VARCHAR para preservar zeros à esquerda.
+\\tabela fornecedores
 CREATE TABLE fornecedores (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
-    nome_fantasia VARCHAR(100) NOT NULL,
-    razao_social VARCHAR(100),
+    nome_fornecedor VARCHAR(100) NOT NULL,
     cnpj VARCHAR(14) NOT NULL UNIQUE,
     telefone VARCHAR(15),
     email VARCHAR(100),
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
--- 2. TABELA DE CATEGORIAS
+\\tabela categorias
 CREATE TABLE categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB;
 
--- 3. TABELA DE COLABORADORES
+\\tabela colaboradores
 CREATE TABLE colaboradores (
     id_colaborador INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -29,8 +27,7 @@ CREATE TABLE colaboradores (
     data_admissao DATE
 ) ENGINE=InnoDB;
 
--- 4. TABELA DE PRODUTOS
--- A categoria agora faz parte do produto.
+\\tabela produtos
 CREATE TABLE produtos (
     id_produto INT AUTO_INCREMENT PRIMARY KEY,
     id_fornecedor INT,
@@ -46,8 +43,7 @@ CREATE TABLE produtos (
         REFERENCES categorias(id_categoria) ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- 5. TABELA DE PEDIDOS (Cabeçalho)
--- Armazena QUEM vendeu e QUANDO.
+\\tabela pedidos
 CREATE TABLE pedidos (
     id_pedido INT AUTO_INCREMENT PRIMARY KEY,
     id_colaborador INT,
@@ -57,21 +53,19 @@ CREATE TABLE pedidos (
         REFERENCES colaboradores(id_colaborador)
 ) ENGINE=InnoDB;
 
--- 6. ITENS DO PEDIDO (Detalhamento)
--- Em sistemas profissionais, um pedido pode ter vários produtos. 
--- Criamos esta tabela para permitir múltiplos itens por pedido.
+\\tabela itens_pedidod
 CREATE TABLE itens_pedido (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     id_pedido INT,
     id_produto INT,
     quantidade INT NOT NULL,
-    preco_unitario_no_ato DECIMAL(10, 2) NOT NULL, -- Salva o preço da época da venda
+    preco_unitario_no_ato DECIMAL(10, 2) NOT NULL,
     CONSTRAINT fk_item_pedido FOREIGN KEY (id_pedido) 
         REFERENCES pedidos(id_pedido) ON DELETE CASCADE,
     CONSTRAINT fk_item_produto FOREIGN KEY (id_produto) 
         REFERENCES produtos(id_produto)
 ) ENGINE=InnoDB;
 
--- Índices para acelerar buscas comuns
+\\indice para acelerar buscas comuns
 CREATE INDEX idx_nome_produto ON produtos(nome);
 CREATE INDEX idx_data_pedido ON pedidos(data_pedido);
