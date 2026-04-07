@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS loja_pascotto_v2;
-USE loja_pascotto_v2;
+CREATE DATABASE IF NOT EXISTS loja_pascotto;
+USE loja_pascotto;
 
 \\tabela fornecedores
     
