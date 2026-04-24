@@ -4,8 +4,8 @@ USE loja_pascotto;
 -- tabela_fornecedores
 CREATE TABLE fornecedores (
     id_fornecedor INT AUTO_INCREMENT PRIMARY KEY,
-    nome_fornecedor VARCHAR(100) NOT NULL,
-    cnpj CHAR(14) NOT NULL UNIQUE, -- CHAR é mais performático para valores fixos
+    nome_fornecedor VARCHAR(200) NOT NULL,
+    cnpj CHAR(14) NOT NULL UNIQUE,
     telefone VARCHAR(15),
     email VARCHAR(100),
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -20,11 +20,11 @@ CREATE TABLE categorias (
 -- tabela_colaboradores  
 CREATE TABLE colaboradores (
     id_colaborador INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    cpf CHAR(11) NOT NULL UNIQUE, -- CHAR para 11 dígitos fixos
+    nome VARCHAR(200) NOT NULL,
+    cpf CHAR(11) NOT NULL UNIQUE,
     cargo VARCHAR(50),
     salario DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    data_admissao DATE NOT NULL -- Definido como obrigatório
+    data_admissao DATE NOT NULL 
 ) ENGINE=InnoDB;
 
 -- tabela_produtos 
